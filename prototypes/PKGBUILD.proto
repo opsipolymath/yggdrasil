@@ -1,0 +1,22 @@
+# Maintainer: Darren Johnston <opsipolymath@gmail.com>
+pkgname="yggdrasil-pkg"
+pkgver=1
+pkgrel=1
+pkgdesc=""
+arch=("x86_64")
+url="https://github.com/opsipolymath/yggdrasil"
+license=("GPL")
+depends=()
+makedepends=()
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=()
+install="${pkgname}.install"
+source=()
+sha256sums=('4f6f8b9fcd8c95e390c322da1d38b56b31d9203cc9b63939351e35b33b506f76'
+            'e95ed59c213a253c3fd49552b1aa585640d5228d09d3dc4fbf29a117155ccdf2')
+
+package() {
+}

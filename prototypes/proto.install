@@ -1,0 +1,31 @@
+#!/hint/bash
+
+# Called right before files are extracted
+# Arguments:
+#     $1: New package version
+pre_install() {
+	return 0
+}
+
+# Called right after files are extracted
+# Arguments:
+#     $1: New package version
+post_install() {
+	return 0
+}
+
+# Called right before files are extracted
+# Arguments:
+#     $1: New package version
+#     $2: Old package version
+post_install() {
+	return 0
+}
+
+# Called right after files are extracted
+# Arguments:
+#     $1: New package version
+#     $2: Old package version
+post_upgrade() {
+	return 0
+}
