@@ -1,31 +1,39 @@
 #!/hint/bash
 
-# Called right before files are extracted
-# Arguments:
-#     $1: New package version
+# Copies existing, hopefully known-good, configs to /etc/yggdrasil/<pkg>/backup
+_backup_configs() {
+	local -r backdir="$confdir"/backup
+
+	(( $# < 1 )) && return 0
+	local f
+	for f in "$@"; do
+		[[ -f /etc/"$f" ]] || continue
+		install -D /etc/"$f" "${backdir}/${f}"
+	done
+}
+
 pre_install() {
 	return 0
 }
 
-# Called right after files are extracted
-# Arguments:
-#     $1: New package version
 post_install() {
+	local -r confdir="/etc/yggdrasil/"
+	local -r configs=()
+	_backup_configs "${configs[@]}"
+}
+
+pre_upgrade() {
 	return 0
 }
 
-# Called right before files are extracted
-# Arguments:
-#     $1: New package version
-#     $2: Old package version
-post_install() {
-	return 0
-}
-
-# Called right after files are extracted
-# Arguments:
-#     $1: New package version
-#     $2: Old package version
 post_upgrade() {
+	return 0
+}
+
+pre_remove() {
+	return 0
+}
+
+post_remove() {
 	return 0
 }

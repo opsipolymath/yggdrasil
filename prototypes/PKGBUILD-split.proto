@@ -1,4 +1,4 @@
-# Maintainer: Opsipolymath <opsipolymath+arch@gmail.com>
+# Maintainer: opsipolymath <opsipolymath+arch@gmail.com>
 pkgbase="yggdrasil-pkg"
 pkgname=(
 	"yggdrasil-pkg1"
@@ -7,9 +7,9 @@ pkgname=(
 pkgver=1
 pkgrel=1
 pkgdesc=""
-arch=("x86_64")
+arch=("any")
 url="https://github.com/opsipolymath/yggdrasil"
-license=("GPL")
+license=("GPL-3.0-or-later")
 depends=()
 makedepends=()
 optdepends=()
@@ -23,8 +23,7 @@ source=(
 
 	# ---- yggdrasil-pkg2
 )
-sha256sums=('4f6f8b9fcd8c95e390c322da1d38b56b31d9203cc9b63939351e35b33b506f76'
-            'e95ed59c213a253c3fd49552b1aa585640d5228d09d3dc4fbf29a117155ccdf2')
+sha256sums=()
 
 package_yggdrasil-pkg1() {
 	pkgdesc=""
@@ -34,7 +33,6 @@ package_yggdrasil-pkg1() {
 	conflicts=()
 	replaces=()
 	backup=()
-	install="${pkgname}.install"
 }
 
 package_yggdrasil-pkg2() {
@@ -45,5 +43,4 @@ package_yggdrasil-pkg2() {
 	conflicts=()
 	replaces=()
 	backup=()
-	install="${pkgname}.install"
 }
