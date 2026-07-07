@@ -1,0 +1,7 @@
+# Maintainer: Aeryxium <base64 -d <<<"YWVyeXhpdW0rYXJjaEBnbWFpbC5jb20K">
+# /etc/sudoers.d/10-wheel
+#
+# Allow wheel group to run everything
+# https://wiki.archlinux.org/index.php/Sudo
+
+%wheel ALL=(ALL) ALL

@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+mirrorlist='/etc/pacman.d/mirrorlist'
+pacnew='/etc/pacman.d/mirrorlist.pacnew'
+
+countries=(CA US)
+
+force=0
+case "${1:-}" in
+    --force) force=1 ;;
+    '') ;;
+    *) echo "usage: ${0##*/} [--force]" >&2; exit 2 ;;
+esac
+
+if (( ! force )) && [[ ! -e "$pacnew" ]]; then
+    exit 0
+fi
+
+workdir="$(mktemp -d)"
+trap 'rm -rf "$workdir"' EXIT HUP INT TERM
+
+candidate="$workdir/mirrorlist.candidate"
+final="$workdir/mirrorlist.final"
+
+country_csv() {
+    local IFS=,
+    printf '%s' "${countries[*]}"
+}
+
+mirrorlist_url() {
+    local url='https://archlinux.org/mirrorlist/?'
+    local country
+
+    for country in "${countries[@]}"; do
+        url+="country=${country}&"
+    done
+
+    url+='protocol=https&use_mirror_status=on'
+    printf '%s\n' "$url"
+}
+
+use_reflector() {
+    reflector \
+        --country "$(country_csv)" \
+        --protocol https \
+        --age 24 \
+        --latest 50 \
+        --sort rate \
+        --save "$candidate"
+}
+
+use_rankmirrors() {
+    curl -fsSL "$(mirrorlist_url)" |
+        sed -e 's/^#Server/Server/' -e '/^#/d' > "$candidate"
+
+    grep -q '^Server = ' "$candidate"
+
+    rankmirrors -n 10 "$candidate" > "$final"
+    mv "$final" "$candidate"
+}
+
+if command -v reflector >/dev/null 2>&1; then
+    use_reflector
+elif command -v rankmirrors >/dev/null 2>&1; then
+    use_rankmirrors
+else
+    echo "No mirror updater found: install reflector or pacman-contrib." >&2
+    exit 1
+fi
+
+grep -q '^Server = ' "$candidate"
+
+install -m0644 "$candidate" "$mirrorlist"
+
+[[ -e "$pacnew" ]] && rm -f "$pacnew"

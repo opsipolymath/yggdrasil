@@ -1,0 +1,48 @@
+#!/bin/zsh
+
+_cleanup_helpers() {
+	read -q 'REPLY?remove helpers [y/N]? ' || {
+		printf '\n'
+		return 0
+	}
+	printf '\n'
+	rm -f -- "$HOME"/.config/shell/{setup.sh,bash/.bash_login,zsh/.zlogin} || {
+		printf 'Failed removing helpers\n'
+		return 1
+	}
+
+	exec zsh -l
+	printf 'Failed replacing shell\n'
+	return 1
+}
+
+do_setup() {
+	[[ ! -f "$HOME"/.config/shell/setup.sh ]] && {
+		printf 'Setup script missing; '
+		_cleanup_helpers
+		return $?
+	}
+
+	[[ -d "$HOME"/.config/dotfiles ]] && {
+		printf 'Setup already completed; '
+		_cleanup_headers
+		return $?
+	}
+
+	read -q 'REPLY?Run setup [y/N]? ' || {
+		printf '\n'
+		return 2
+	}
+	printf '\n'
+
+	"$HOME"/.config/shell/setup.sh || {
+		printf 'Setup failed; aborting\n'
+		return 1
+	}
+
+	printf 'Setup complete; '
+	_cleanup_helpers
+	return $?
+}
+
+do_setup

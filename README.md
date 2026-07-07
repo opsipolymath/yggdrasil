@@ -82,7 +82,7 @@ Packages will be built and deployed as they are ready. Built copies can be found
 ## Task List
 - [*] Create repo, select license, create README.md
 - [*] Create prototpes
-- [ ] Create -base package
+- [*] Create -base package
 - [ ] Create -admin package
 - [ ] Create -cpu packages
 - [ ] Create -boot packages

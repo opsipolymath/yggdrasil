@@ -1,0 +1,9 @@
+[Unit]
+Description=Update pacman mirrorlist
+Documentation=man:pacman(8)
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/mirrorupdate --force

@@ -1,0 +1,136 @@
+# Maintainer: Opsipolymath <opsipolymath@gmail.com>
+pkgname="yggdrasil-base"
+pkgver=1
+pkgrel=1
+pkgdesc="A base set of packages required by all yggdrasil hosts"
+arch=("any")
+url="https://github.com/opsipolymath/yggdrasil"
+license=("GPL-3.0-or-later")
+depends=(
+	'base'
+	'bash'
+	'bash-completion'
+	'zsh'
+	'zsh-completions'
+	'zsh-syntax-highlighting'
+
+	'bat'
+	'bzip2'
+	'gawk'
+	'git'
+	'gnupg'
+	'grep'
+	'inetutils'
+	'iptables'
+	'iputils'
+	'less'
+	'lsof'
+	'man-db'
+	'man-pages'
+	'openssh'
+	'pacman'
+	'pv'
+	'sed'
+	'sudo'
+	'tar'
+	'tldr'
+	'tmux'
+	'traceroute'
+	'tree'
+	'util-linux'
+	'vim'
+	'wget'
+	'xdg-user-dirs'
+	'xz'
+
+	'btrfs-progs'
+	'cifs-utils'
+	'dosfstools'
+	'e2fsprogs'
+	'exfatprogs'
+)
+makedepends=()
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=(
+	"etc/zsh/zshenv"
+	"etc/sudoers.d/10-wheel"
+	"etc/yggdrasil/issue"
+	"etc/yggdrasil/locale.conf"
+	"etc/yggdrasil/makepkg.conf"
+	"etc/yggdrasil/mkinitcpio.conf"
+	"etc/yggdrasil/pacman.conf"
+	"etc/yggdrasil/vconsole.conf"
+)
+install="${pkgname}.install"
+source=(
+	'setup.sh'
+	'bash_login'
+	'zlogin'
+	'zshenv'
+
+	'i18n-locales-en_CA_24'
+	'us-ctrlcaps.map.gz'
+
+	'sudoers.d-10-wheel'
+	'polkit-pcscd.rules'
+
+	'mirrorupdate'
+	'mirrorupdate.timer'
+	'mirrorupdate.service'
+
+	'motd-10-base'
+	'issue'
+	'locale.conf'
+	'makepkg.conf'
+	'mkinitcpio.conf'
+	'pacman.conf'
+	'vconsole.conf'
+)
+md5sums=('b892a88d4f4674b5123e58af4aef0d1e'
+         'fc8b1da36a9e8a038218e6230e495329'
+         '6b503832474897841e80acddb8d5d327'
+         '8a89f9a5a61fd2cb35816601fbca3c51'
+         'e9e38a729d882451aaa5b02a6c65514a'
+         'b4409cb1f01b194d3e2cff9c5b6bb15a'
+         '0c7da44a208959382970dee27b32bc73'
+         '307ec54791791859a9171d56fa7f5b5f'
+         '2064034a5e56e151e6ba5c348880727a'
+         '220da4b8fa37d68210a70a0ca8932868'
+         '69da776cee6839f793d7d9c26a27558d'
+         '853b0c392b72acab18a3dce618135bf5'
+         '94c5c7b6977b80baa9ef909b0613b331'
+         '9f35bf1f2095ff3399efd2a3a288a2a3'
+         'c86331f2663fe31ff5743ca519a9b66e'
+         'af9bdff811cb7eaaba25a7d1506a64a2'
+         'e7ef46a00f53f058a41706c02ff770cb'
+         '4defd17e36740231dc3770ba27d69b10')
+
+package() {
+	install -Dm0755 "$srcdir/setup.sh"              "$pkgdir/etc/skel/.config/shell/setup.sh"
+	install -Dm0644 "$srcdir/bash_login"            "$pkgdir/etc/skel/.config/shell/bash/.bash_login"
+	install -Dm0644 "$srcdir/zlogin"                "$pkgdir/etc/skel/.config/shell/zsh/.zlogin"
+	install -Dm0644 "$srcdir/zshenv"                "$pkgdir/etc/zsh/zshenv"
+
+	install -Dm0644 "$srcdir/i18n-locales-en_CA_24" "$pkgdir/usr/share/i18n/locales/en_CA_24"
+	install -Dm0644 "$srcdir/us-ctrlcaps.map.gz"    "$pkgdir/usr/share/kbd/keymaps/i386/qwerty/us-ctrlcaps.map.gz"
+
+	install -dm0750                                 "$pkgdir/etc/sudoers.d"
+	install -Dm0440 "$srcdir/sudoers.d-10-wheel"    "$pkgdir/etc/sudoers.d/10-wheel"
+	install -Dm0644 "$srcdir/sshd-yggdrasil.conf"   "$pkgdir/etc/ssh/sshd_config.d/50-yggdrasil.conf"
+	install -Dm0655 "$srcdir/polkit-pcscd.rules"    "$pkgdir/etc/polkit-1/rules.d/99-pcscd.rules"
+
+	install -Dm0755 "$srcdir/mirrorupdate"          "$pkgdir/usr/bin/mirrorupdate"
+	install -Dm0644 "$srcdir/mirrorupdate.timer"    "$pkgdir/usr/lib/systemd/system/mirrorupdate.timer"
+	install -Dm0644 "$srcdir/mirrorupdate.service"  "$pkgdir/usr/lib/systemd/system/mirrorupdate.service"
+
+	install -Dm0644 "$srcdir/motd-10-base"          "$pkgdir/etc/yggdrasil/motd/10-base"
+	install -Dm0644 "$srcdir/issue"                 "$pkgdir/etc/yggdrasil/issue"
+	install -Dm0644 "$srcdir/locale.conf"           "$pkgdir/etc/yggdrasil/locale.conf"
+	install -Dm0644 "$srcdir/makepkg.conf"          "$pkgdir/etc/yggdrasil/makepkg.conf"
+	install -Dm0644 "$srcdir/mkinitcpio.conf"       "$pkgdir/etc/yggdrasil/mkinitcpio.conf"
+	install -Dm0644 "$srcdir/pacman.conf"           "$pkgdir/etc/yggdrasil/pacman.conf"
+	install -Dm0644 "$srcdir/vconsole.conf"         "$pkgdir/etc/yggdrasil/vconsole.conf"
+}
