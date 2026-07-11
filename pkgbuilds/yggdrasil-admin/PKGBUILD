@@ -1,0 +1,45 @@
+# Maintainer: opsipolymath <opsipolymath@gmail.com>
+pkgname="yggdrasil-admin"
+pkgver=1
+pkgrel=1
+pkgdesc="A set of packages required for system admin on yggdrasil hosts"
+arch=("any")
+url="https://github.com/opsipolymath/yggdrasil"
+license=("GPL-3.0-or-later")
+depends=(
+	'arch-audit'
+	'aurutils'
+	'base-devel'
+	'devtools'
+	'mtr'
+	'namcap'
+	'pacman-contrib'
+	'pacutils'
+	'rebuild-detector'
+	'repoctl'
+	'shellcheck'
+)
+makedepends=()
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=()
+install="${pkgname}.install"
+source=(
+	'pacman-hook-90-paccache.hook'
+	'aur-chroot.conf'
+	'pacman-x86_64.conf'
+	'makepkg-x86_64.conf'
+)
+md5sums=('630a5bd707ba176dac45261034688cc2'
+         '1ea937154868823ff14c36c8d37ea30d'
+         'f9ed906414dcac0e6725d721ae16e285'
+         'c86331f2663fe31ff5743ca519a9b66e')
+
+package() {
+	install -Dm0644 "$srcdir/pacman-hook-90-paccache.hook" "$pkgdir/usr/share/libalpm/hooks/90-paccache.hook"
+	install -Dm0644 "$srcdir/aur-chroot.conf"              "$pkgdir/etc/yggdrasil/aur-chroot.conf"
+	install -Dm0644 "$srcdir/pacman-x86_64.conf"           "$pkgdir/etc/yggdrasil/pacman-x86_64.conf"
+	install -Dm0644 "$srcdir/makepkg-x86_64.conf"          "$pkgdir/etc/yggdrasil/makepkg-x86_64.conf"
+}

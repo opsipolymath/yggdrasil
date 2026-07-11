@@ -1,0 +1,13 @@
+# /usr/share/libalpm/hooks/90-paccache-installed.hook
+
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Type = Package
+Target = *
+
+[Action]
+Description = Cleaning old installed package archives...
+When = PostTransaction
+Depends = pacman-contrib
+Exec = /usr/bin/paccache -rk3 -q

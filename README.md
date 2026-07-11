@@ -83,7 +83,7 @@ Packages will be built and deployed as they are ready. Built copies can be found
 - [*] Create repo, select license, create README.md
 - [*] Create prototpes
 - [*] Create -base package
-- [ ] Create -admin package
+- [*] Create -admin package
 - [ ] Create -cpu packages
 - [ ] Create -boot packages
 - [ ] Create -server packages
