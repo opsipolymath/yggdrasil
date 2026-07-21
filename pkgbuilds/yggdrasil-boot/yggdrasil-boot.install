@@ -1,0 +1,57 @@
+#!/hint/bash
+
+# Set UUID and ucode for loader entries
+_update_entries() {
+	# Subshell to localize shopt changes
+	(
+		shopt -s nullglob
+		local _ucodes
+		_ucodes=( /boot/*-ucode.img )
+		echo "getting microcode list"
+		if (( ${#_ucodes[@]} < 1 )); then
+			printf 'error: no CPU microcode files detected\n'
+			return
+		fi
+		if (( ${#_ucodes[@]} > 1 )); then
+			# non-fatal
+			printf 'error: multiple CPU microcode files detected\n'
+		fi
+		sed -i "s|<ucode>|${_ucodes[0]#/boot/}|" "$1"
+
+		echo "getting root uuid"
+		local _rootuuid
+		if ! _rootuuid="$(findmnt -no UUID -T /)" || [[ -z $_rootuuid ]]; then
+			printf 'error: unable to deteremine UUID of root\n'
+			return
+		fi
+		sed -i "s|<UUID>|${_rootuuid}|" "$1"
+
+		echo "checking fs type"
+		local _fstype _fsroot
+		read -r _fstype _fsroot < <(
+			findmnt -rn -o FSTYPE,FSROOT --target /
+			) || {
+			printf 'error: unable to determine mount type\n'
+			return
+		}
+		[[ $_fstype != btrfs || $_fsroot == / ]] && {
+			sed -i 's| rootflags=subvol=<subvol>||' "$1"
+			return
+		}
+		sed -i "s|<subvol>|${_fsroot#/}|" "$1"
+	)
+}
+
+post_install() {
+	for e in /boot/loader/entries/*; do
+		grep -q '<ucode>' "$e" &>/dev/null && _update_entries "$e"
+	done
+
+	bootctl install
+}
+
+post_upgrade() {
+	for e in /boot/loader/entries/*; do
+		grep -q '<ucode>' "$e" &>/dev/null && _update_entries "$e"
+	done
+}

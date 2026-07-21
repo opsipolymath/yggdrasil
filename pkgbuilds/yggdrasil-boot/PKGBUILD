@@ -1,0 +1,103 @@
+# Maintainer: opsipolymath <opsipolymath+arch@gmail.com>
+pkgbase="yggdrasil-boot"
+pkgname=(
+	"yggdrasil-boot-examples"
+	"yggdrasil-boot-linux"
+	"yggdrasil-boot-lts"
+	"yggdrasil-boot-hardened"
+	"yggdrasil-boot-zen"
+)
+pkgver=1
+pkgrel=1
+pkgdesc="Kernel and example files for yggdrasil systems using systemd-boot"
+arch=("any")
+url="https://github.com/opsipolymath/yggdrasil"
+license=("GPL-3.0-or-later")
+depends=(
+	'efibootmgr'
+	'linux-firmware'
+)
+makedepends=()
+optdepends=()
+provides=('yggdrasil-boot')
+conflicts=()
+replaces=()
+backup=(
+	'usr/share/yggdrasil/loader-example.conf'
+)
+install="${pkgbase}.install"
+source=(
+	'loader-example.conf'
+	'loader-example-lts.conf'
+	'loader-example-hardened.conf'
+	'loader-example-zen.conf'
+	'arch-linux.conf'
+	'arch-linux-lts.conf'
+	'arch-linux-hardened.conf'
+	'arch-linux-zen.conf'
+)
+md5sums=('b3ba00dde491e0d501b9f8a85134f391'
+         '06803d29c5d532fe02a121217bf8ee47'
+         '70975688fd83fbe1c4b24ea78ed7d24d'
+         '589e58e295430050b004af20030e2c9e'
+         '7b8a38c4fa8f77c890d6dc79689c6c18'
+         '656b330207ddeb4ff76d5a412d5e4f8c'
+         'eadff974b991e9cf5a5e887aa5377edc'
+         'c0a5efe79585ab9ee28c68dd712f4566')
+
+package_yggdrasil-boot-examples() {
+	pkgdesc="Example files for yggdrasil systems using systemd-boot"
+
+	install -Dm0644 "$srcdir/loader-example.conf"          "$pkgdir/usr/share/yggdrasil/loader-example.conf"
+	install -Dm0644 "$srcdir/loader-example-lts.conf"      "$pkgdir/usr/share/yggdrasil/loader-example-lts.conf"
+	install -Dm0644 "$srcdir/loader-example-hardened.conf" "$pkgdir/usr/share/yggdrasil/loader-example-hardened.conf"
+	install -Dm0644 "$srcdir/loader-example-zen.conf"      "$pkgdir/usr/share/yggdrasil/loader-example-zen.conf"
+}
+
+package_yggdrasil-boot-linux() {
+	pkgdesc="Vanilla kernel packages for yggdrasil systems using systemd-boot"
+	depends+=(
+		'linux'
+		'linux-headers'
+		'yggdrasil-boot-examples'
+	)
+	backup+=('boot/loader/entries/arch-linux.conf')
+
+	install -Dm0644 "$srcdir/arch-linux.conf"            "$pkgdir/boot/loader/entries/arch-linux.conf"
+}
+
+package_yggdrasil-boot-lts() {
+	pkgdesc="LTS kernel packages for yggdrasil systems using systemd-boot"
+	depends+=(
+		'linux-lts'
+		'linux-lts-headers'
+		'yggdrasil-boot-examples'
+	)
+	backup+=('boot/loader/entries/arch-linux-lts.conf')
+
+	install -Dm0644 "$srcdir/arch-linux-lts.conf"        "$pkgdir/boot/loader/entries/arch-linux-lts.conf"
+}
+
+package_yggdrasil-boot-hardened() {
+	pkgdesc="Hardened kernel packages for yggdrasil systems using systemd-boot"
+	depends+=(
+		'linux-hardened'
+		'linux-hardened-headers'
+		'yggdrasil-boot-examples'
+	)
+	backup+=('boot/loader/entries/arch-linux-hardened.conf')
+
+	install -Dm0644 "$srcdir/arch-linux-hardened.conf"   "$pkgdir/boot/loader/entries/arch-linux-hardened.conf"
+}
+
+package_yggdrasil-boot-zen() {
+	pkgdesc="Zen kernel packages for yggdrasil systems using systemd-boot"
+	depends+=(
+		'linux-zen'
+		'linux-zen-headers'
+		'yggdrasil-boot-examples'
+	)
+	backup+=('boot/loader/entries/arch-linux-zen.conf')
+
+	install -Dm0644 "$srcdir/arch-linux-zen.conf"        "$pkgdir/boot/loader/entries/arch-linux-zen.conf"
+}

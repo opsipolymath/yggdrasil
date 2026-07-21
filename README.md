@@ -85,8 +85,8 @@ Packages will be built and deployed as they are ready. Built copies can be found
 - [*] Create -base package
 - [*] Create -admin package
 - [*] Create -cpu packages
-- [ ] Create -boot packages
-- [ ] Create -server packages
+- [*] Create -boot packages
+- [*] Create -server packages
 - [ ] Create -networking packages
 - [ ] Create -snapper package
 - [ ] Create -gpu packages
