@@ -1,0 +1,47 @@
+# Maintainer: opsipolymath <opsipolymath+arch@gmail.com>
+pkgbase="yggdrasil-cpu"
+pkgname=(
+	"yggdrasil-cpu-intel"
+	"yggdrasil-cpu-amd"
+)
+pkgver=1
+pkgrel=1
+pkgdesc="CPU support and physical-host monitoring packages for yggdrasil hosts"
+arch=("any")
+url="https://github.com/opsipolymath/yggdrasil"
+license=("GPL-3.0-or-later")
+depends=(
+	'ccid'
+	'cpupower'
+	'dmidecode'
+	'ethtool'
+	'jq'
+	'lm_sensors'
+	'nvme-cli'
+	'opensc'
+	'pciutils'
+	'tmon'
+	'usbutils'
+)
+makedepends=()
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=()
+source=()
+sha256sums=()
+
+package_yggdrasil-cpu-intel() {
+	pkgdesc="Intel-specific CPU support and physical-host monitoring packages for yggdrasil hosts"
+	depends+=("intel-ucode")
+	provides=("yggdrasil-cpu")
+	conflicts=("yggdrasil-cpu-amd")
+}
+
+package_yggdrasil-cpu-amd() {
+	pkgdesc="AMD-specific CPU support and physical-host monitoring packages for yggdrasil hosts"
+	depends+=("amd-ucode")
+	provides=("yggdrasil-cpu")
+	conflicts=("yggdrasil-cpu-intel")
+}
