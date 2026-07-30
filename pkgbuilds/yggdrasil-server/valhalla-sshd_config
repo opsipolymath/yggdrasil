@@ -1,0 +1,20 @@
+# /etc/ssh/sshd_config
+#
+# Configuration file for ssh daemon.
+
+AllowTcpForwarding            yes
+PubkeyAuthentication          yes
+StreamLocalBindUnlink         yes
+UsePAM                        yes
+KbdInteractiveAuthentication  no
+PasswordAuthentication        no
+PermitEmptyPasswords          no
+PermitRootLogin               no
+PrintMotd                     no
+
+
+AuthorizedKeysFile .config/ssh/authorized_keys
+Subsystem   sftp   /usr/lib/ssh/sftp-server
+
+AuthenticationMethods publickey
+
