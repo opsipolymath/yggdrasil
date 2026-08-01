@@ -87,8 +87,9 @@ Packages will be built and deployed as they are ready. Built copies can be found
 - [*] Create -cpu packages
 - [*] Create -boot packages
 - [*] Create -server packages
-- [ ] Create -networking packages
+- [*] Create -networking packages
 - [ ] Create -snapper package
 - [ ] Create -gpu packages
 - [ ] Create -workstation packages
-- [ ] Write simple installer script
+- [ ] Create split package for X11/Wayland
+- [*] Write simple installer script
