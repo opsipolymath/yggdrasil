@@ -56,6 +56,7 @@ conflicts=()
 replaces=()
 backup=(
 	"etc/zsh/zshenv"
+	"etc/ssh/sshd_config.d/50-yggdrasil.conf"
 	"etc/sudoers.d/10-wheel"
 	"etc/yggdrasil/issue"
 	"etc/yggdrasil/locale.conf"
@@ -74,6 +75,7 @@ source=(
 	'i18n-locales-en_CA_24'
 	'us-ctrlcaps.map.gz'
 
+	'sshd-yggdrasil.conf'
 	'sudoers.d-10-wheel'
 	'polkit-pcscd.rules'
 
@@ -95,6 +97,7 @@ md5sums=('b892a88d4f4674b5123e58af4aef0d1e'
          '8a89f9a5a61fd2cb35816601fbca3c51'
          'e9e38a729d882451aaa5b02a6c65514a'
          'b4409cb1f01b194d3e2cff9c5b6bb15a'
+         '157eb965d416591ee4f7b965db1699de'
          '0c7da44a208959382970dee27b32bc73'
          '307ec54791791859a9171d56fa7f5b5f'
          '2064034a5e56e151e6ba5c348880727a'

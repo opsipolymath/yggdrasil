@@ -31,18 +31,14 @@ source=(
 	# ---- yggdrasil-valhalla
 	'valhalla-hostname'
 	'valhalla-override.conf'
-	'valhalla-sshd_config'
 	'motd-50-valhalla'
 	'sysusers.yggdrasil-valhalla.conf'
 )
-md5sums=('54bf7e2d7dc196f9bca7c7be8fb6d65f'
-         'bca1799fb873ef2cd54d772733e10711'
-         '08c8f8e0bfef3fe721cd76135de3a96c'
+md5sums=('08c8f8e0bfef3fe721cd76135de3a96c'
          '655d7890ae5281b7b4e0b9339ebe820f'
          '69a5d30608abd1c1cccbdb2ee6b65078'
          'b02f5de1828a284ac13af8ddf1055e88'
          'f23f07f7338008cc70d5f5614f096eed'
-         '157eb965d416591ee4f7b965db1699de'
          '6dfbeec874ce9aae1149fb0f56bdad3f'
          '1f42ae6e2350f998da8517904148b196')
 
@@ -86,7 +82,7 @@ package_yggdrasil-folkvangr() {
 	conflicts=('yggdrasil-valhalla')
 	backup=(
 		'etc/hostname'
-		'etc/ssh/sshd_config'
+		'etc/ssh/sshd_config.d/10-folkvangr.conf'
 	)
 
 	install -Dm0644 "$srcdir/folkvangr-hostname"    "$pkgdir/etc/hostname"
@@ -120,13 +116,11 @@ package_yggdrasil-valhalla() {
 	backup=(
 		'etc/hostname'
 		'etc/systemd/system/systemd-networkd-wait-online.service.d/override.conf'
-		'etc/ssh/sshd_config'
 		'usr/lib/sysusers.d/sysusers.yggdrasil-valhalla.conf'
 	)
 
 	install -Dm0644 "$srcdir/valhalla-hostname"      "$pkgdir/etc/hostname"
 	install -Dm0644 "$srcdir/valhalla-override.conf" "$pkgdir/etc/systemd/system/systemd-networkd-wait-online.service.d/override.conf"
-	install -Dm0644 "$srcdir/valhalla-sshd_config"   "$pkgdir/etc/ssh/sshd_config.d/10-valhalla.conf"
 	install -Dm0644 "$srcdir/motd-50-valhalla"       "$pkgdir/etc/yggdrasil/motd/50-valhalla"
 	install -Dm0644 "$srcdir/sysusers.yggdrasil-valhalla.conf" "$pkgdir/usr/lib/sysusers.d/sysusers.yggdrasil-valhalla.conf"
 }
