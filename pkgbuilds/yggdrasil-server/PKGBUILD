@@ -22,8 +22,6 @@ backup=(
 install="${pkgname}.install"
 source=(
 	# ---- yggdrasil-server
-	'snapper-root'
-	'snapper-home'
 
 	# ---- yggdrasil-folkvangr
 	'folkvangr-hostname'
@@ -60,18 +58,10 @@ package_yggdrasil-server() {
 		'borg'
 		'conntrack-tools'
 		'nftables'
-		'snapper'
 		'tcpdump'
 	)
 	conflicts=('yggdrasil-workstation')
-	backup=(
-		'etc/snapper/configs/root'
-		'etc/snapper/configs/home'
-	)
 	install=""
-
-	install -Dm0600 "$srcdir/snapper-root" "$pkgdir/etc/snapper/configs/root"
-	install -Dm0600 "$srcdir/snapper-home" "$pkgdir/etc/snapper/configs/home"
 }
 
 package_yggdrasil-folkvangr() {
@@ -123,7 +113,6 @@ package_yggdrasil-valhalla() {
 		's-nail'
 		'samba'
 		'smartmontools'
-		'snapper'
 		'zfs-dkms'
 		'zfs-utils'
 	)

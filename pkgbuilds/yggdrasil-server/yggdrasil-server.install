@@ -1,7 +1,6 @@
 #!/hint/bash
 
 post_install() {
-	systemctl enable 
 	cat /etc/yggdrasil/motd/50-* >> /etc/motd
 	cat /usr/share/yggdrasil/loader-example-lts.conf > /boot/loader/loader.conf
 

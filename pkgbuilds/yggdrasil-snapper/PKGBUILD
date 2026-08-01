@@ -1,0 +1,33 @@
+# Maintainer: opsipolymath <opsipolymath@gmail.com>
+pkgname="yggdrasil-snapper"
+pkgver=1
+pkgrel=1
+pkgdesc="Snapper configuration for yggdrasil hosts that require it"
+arch=("any")
+url="https://github.com/opsipolymath/yggdrasil"
+license=("GPL-3.0-or-later")
+depends=(
+	'btrfs-progs'
+	'snapper'
+)
+makedepends=()
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=(
+	'etc/snapper/configs/root'
+	'etc/snapper/configs/home'
+)
+install="${pkgname}.install"
+source=(
+	'snapper-root'
+	'snapper-home'
+)
+md5sums=('54bf7e2d7dc196f9bca7c7be8fb6d65f'
+         'bca1799fb873ef2cd54d772733e10711')
+
+package() {
+	install -Dm0600 "$srcdir/snapper-root" "$pkgdir/etc/snapper/configs/root"
+	install -Dm0600 "$srcdir/snapper-home" "$pkgdir/etc/snapper/configs/home"
+}
