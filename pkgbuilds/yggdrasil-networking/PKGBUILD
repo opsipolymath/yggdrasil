@@ -1,0 +1,44 @@
+# Maintainer: opsipolymath <opsipolymath+arch@gmail.com>
+pkgbase="yggdrasil-networking"
+pkgname=(
+	"yggdrasil-networking-wired"
+	"yggdrasil-networking-wireless"
+)
+pkgver=1
+pkgrel=1
+pkgdesc="Packages to enable networking for yggdrasil-based hosts"
+arch=("any")
+url="https://github.com/opsipolymath/yggdrasil"
+license=("GPL-3.0-or-later")
+depends=('systemd')
+makedepends=()
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=(
+	'etc/systemd/network/90-wired.network'
+	'etc/systemd/network/95-wireless.network'
+)
+install="${pkgbase}.install"
+source=(
+	# ---- yggdrasil-networking-wired
+	'90-wired.network'
+
+	# ---- yggdrasil-networking-wireless
+	'95-wireless.network'
+)
+md5sums=('facf140b856f11e22fa975de6ef0b8e9'
+         '9f10d5849890f92633f2dcbb7636c439')
+
+package_yggdrasil-networking-wired() {
+	pkgdesc="Enables wired networking for yggdrasil hosts"
+
+	install -Dm0644 "$srcdir/90-wired.network" "$pkgdir/etc/system/network/90-wired.network"
+}
+
+package_yggdrasil-networking-wireless() {
+	pkgdesc="Enables wireless networking for yggdrasil hosts"
+
+	install -Dm0644 "$srcdir/95-wireless.network" "$pkgdir/etc/system/network/95-wireless.network"
+}
