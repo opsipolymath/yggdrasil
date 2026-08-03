@@ -2,5 +2,9 @@
 
   -  Get/start docker container images
   -  Copy over data from old install
-  -  Setup secrets in /etc/nullmailer and start svc
+  -  Import ZFS pools and verify data, optionally scrub
+  -  Setup secrets in /etc/nullmailer
+  -  systemctl enable --now nullmailer 
+  -  Setup secrets in /etc/yggdrasil/zed.rc
+  - systemctl enable --now zed.rc
 

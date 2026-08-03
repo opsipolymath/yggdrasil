@@ -6,4 +6,7 @@ post_install() {
 
 	systemctl enable sshd.service
 	bootctl set-default ""
+
+	install -D /etc/zfs/zed.d/zed.rc /etc/yggdrasil/valhalla/backup/zed.rc
+	ln -sf /etc/yggdrasil/zed.rc     /etc/zfs/zed.d/zed.rc
 }

@@ -40,20 +40,23 @@ source=(
 	'data1.timer-schedule.conf'
 	'data2.timer-schedule.conf'
 	'data3.timer-schedule.conf'
+
+	'zed.rc'
 )
 md5sums=('08c8f8e0bfef3fe721cd76135de3a96c'
          '655d7890ae5281b7b4e0b9339ebe820f'
          '69a5d30608abd1c1cccbdb2ee6b65078'
          'b02f5de1828a284ac13af8ddf1055e88'
          'f23f07f7338008cc70d5f5614f096eed'
-         'd25cdbdc73f02549e1905b256dd9b6a1'
+         'd155b4ff2543d01e6a972ed9bcee8234'
          'cdd3b9c5f52460a0a95eb63880c8b7a3'
          'cdd3b9c5f52460a0a95eb63880c8b7a3'
          '22168992a8d57a5d3a64ca73bb9fc669'
          '1f42ae6e2350f998da8517904148b196'
          '871577e0aea93141466869b99f6a97e7'
          '6c7a3ff7ffc7d9af44e6e3753ec668be'
-         '975161de6050d2e176b3f0ea03e02037')
+         '975161de6050d2e176b3f0ea03e02037'
+         'ff2f25b7f33feffd1eb7576580a00a60')
 
 package_yggdrasil-server() {
 	pkgdesc="A base set of packages required by all yggdrasil servers"
@@ -145,4 +148,6 @@ package_yggdrasil-valhalla() {
 	install -Dm0644 "$srcdir/data1.timer-schedule.conf"        "$pkgdir/etc/systemd/system/zfs-scrub-monthly@data1.timer.d/schedule.conf"
 	install -Dm0644 "$srcdir/data2.timer-schedule.conf"        "$pkgdir/etc/systemd/system/zfs-scrub-monthly@data2.timer.d/schedule.conf"
 	install -Dm0644 "$srcdir/data3.timer-schedule.conf"        "$pkgdir/etc/systemd/system/zfs-scrub-monthly@data3.timer.d/schedule.conf"
+
+	install -Dm0644 "$srcdir/zed.rc"                           "$pkgdrir/etc/yggdrasil/zed.rc"
 }
