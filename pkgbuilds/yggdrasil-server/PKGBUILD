@@ -36,6 +36,10 @@ source=(
 	'nullmailer-allmailfrom'
 	'nullmailer-defaultdomain'
 	'sysusers.yggdrasil-valhalla.conf'
+
+	'data1.timer-schedule.conf'
+	'data2.timer-schedule.conf'
+	'data3.timer-schedule.conf'
 )
 md5sums=('08c8f8e0bfef3fe721cd76135de3a96c'
          '655d7890ae5281b7b4e0b9339ebe820f'
@@ -46,7 +50,10 @@ md5sums=('08c8f8e0bfef3fe721cd76135de3a96c'
          'cdd3b9c5f52460a0a95eb63880c8b7a3'
          'cdd3b9c5f52460a0a95eb63880c8b7a3'
          '22168992a8d57a5d3a64ca73bb9fc669'
-         '1f42ae6e2350f998da8517904148b196')
+         '1f42ae6e2350f998da8517904148b196'
+         '871577e0aea93141466869b99f6a97e7'
+         '6c7a3ff7ffc7d9af44e6e3753ec668be'
+         '975161de6050d2e176b3f0ea03e02037')
 
 package_yggdrasil-server() {
 	pkgdesc="A base set of packages required by all yggdrasil servers"
@@ -128,8 +135,14 @@ package_yggdrasil-valhalla() {
 	install -Dm0644 "$srcdir/valhalla-hostname"                "$pkgdir/etc/hostname"
 	install -Dm0644 "$srcdir/valhalla-override.conf"           "$pkgdir/etc/systemd/system/systemd-networkd-wait-online.service.d/override.conf"
 	install -Dm0644 "$srcdir/motd-50-valhalla"                 "$pkgdir/etc/yggdrasil/motd/50-valhalla"
+
 	install -Dm0644 "$srcdir/sysusers.yggdrasil-valhalla.conf" "$pkgdir/usr/lib/sysusers.d/yggdrasil-valhalla.conf"
+
 	install -Dm0644 "$srcdir/nullmailer-adminaddr"             "$pkgdir/etc/nullmailer/adminaddr"
 	install -Dm0644 "$srcdir/nullmailer-allmailfrom"           "$pkgdir/etc/nullmailer/allmailfrom"
 	install -Dm0644 "$srcdir/nullmailer-defaultdomain"         "$pkgdir/etc/nullmailer/defaultdomain"
+
+	install -Dm0644 "$srcdir/data1.timer-schedule.conf"        "$pkgdir/etc/systemd/system/zfs-scrub-monthly@data1.timer.d/schedule.conf"
+	install -Dm0644 "$srcdir/data2.timer-schedule.conf"        "$pkgdir/etc/systemd/system/zfs-scrub-monthly@data2.timer.d/schedule.conf"
+	install -Dm0644 "$srcdir/data3.timer-schedule.conf"        "$pkgdir/etc/systemd/system/zfs-scrub-monthly@data3.timer.d/schedule.conf"
 }
