@@ -42,6 +42,10 @@ source=(
 	'data3.timer-schedule.conf'
 
 	'zed.rc'
+	'mail.conf'
+	'btrfs-scrub-mail'
+	'btrfs-scrub-mail.service'
+	'btrfs-scrub-mail.timer'
 )
 md5sums=('08c8f8e0bfef3fe721cd76135de3a96c'
          '655d7890ae5281b7b4e0b9339ebe820f'
@@ -56,7 +60,11 @@ md5sums=('08c8f8e0bfef3fe721cd76135de3a96c'
          '871577e0aea93141466869b99f6a97e7'
          '6c7a3ff7ffc7d9af44e6e3753ec668be'
          '975161de6050d2e176b3f0ea03e02037'
-         'ff2f25b7f33feffd1eb7576580a00a60')
+         'ff2f25b7f33feffd1eb7576580a00a60'
+         '3d51177520f43ab017e2bd0bd49dd74f'
+         'f0f43ed4e88513fd711bfbe68a0ac56a'
+         'f576b55f9a6a8622dc56738f70658852'
+         '06832b77305a666c5031b3914839ffa1')
 
 package_yggdrasil-server() {
 	pkgdesc="A base set of packages required by all yggdrasil servers"
@@ -145,9 +153,13 @@ package_yggdrasil-valhalla() {
 	install -Dm0644 "$srcdir/nullmailer-allmailfrom"           "$pkgdir/etc/nullmailer/allmailfrom"
 	install -Dm0644 "$srcdir/nullmailer-defaultdomain"         "$pkgdir/etc/nullmailer/defaultdomain"
 
-	install -Dm0644 "$srcdir/data1.timer-schedule.conf"        "$pkgdir/etc/systemd/system/zfs-scrub-monthly@data1.timer.d/schedule.conf"
-	install -Dm0644 "$srcdir/data2.timer-schedule.conf"        "$pkgdir/etc/systemd/system/zfs-scrub-monthly@data2.timer.d/schedule.conf"
-	install -Dm0644 "$srcdir/data3.timer-schedule.conf"        "$pkgdir/etc/systemd/system/zfs-scrub-monthly@data3.timer.d/schedule.conf"
+	install -Dm0644 "$srcdir/data1.timer-schedule.conf"        "$pkgdir/usr/lib/systemd/system/zfs-scrub-monthly@data1.timer.d/schedule.conf"
+	install -Dm0644 "$srcdir/data2.timer-schedule.conf"        "$pkgdir/usr/lib/systemd/system/zfs-scrub-monthly@data2.timer.d/schedule.conf"
+	install -Dm0644 "$srcdir/data3.timer-schedule.conf"        "$pkgdir/usr/lib/systemd/system/zfs-scrub-monthly@data3.timer.d/schedule.conf"
 
-	install -Dm0644 "$srcdir/zed.rc"                           "$pkgdrir/etc/yggdrasil/zed.rc"
+	install -Dm0644 "$srcdir/zed.rc"                           "$pkgdir/etc/yggdrasil/zed.rc"
+	install -Dm0644 "$srcdir/mail.conf"                        "$pkgdir/etc/yggdrasil/mail.conf"
+	install -Dm0750 "$srcdir/btrfs-scrub-mail"                 "$pkgdir/usr/lib/yggdrasil/btrfs-scrub-mail"
+	install -Dm0644 "$srcdir/btrfs-scrub-mail.service"         "$pkgdir/usr/lib/systemd/system/btrfs-scrub-root.service"
+	install -Dm0644 "$srcdir/btrfs-scrub-mail.service"         "$pkgdir/usr/lib/systemd/system/btrfs-scrub-root.timer"
 }

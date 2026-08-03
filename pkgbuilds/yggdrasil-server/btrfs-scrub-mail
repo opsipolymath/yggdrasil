@@ -1,0 +1,69 @@
+#!/bin/bash
+
+set -u
+
+scrub_path="/mnt/btrfs_root"
+config_file="/etc/yggdrasil/mail.conf"
+
+if [[ ! -r "$config_file" ]]; then
+	printf 'Cannot read %s\n' "$config_file" >&2
+	exit 1
+fi
+
+source "$config_file"
+: "${MAIL_TO:?MAIL_TO is not set in $config_file}"
+: "${MAIL_FROM:?MAIL_FROM is not set in $config_file}"
+
+host=$(/usr/bin/hostname)
+started=$(/usr/bin/date --iso-8601=seconds)
+output=""
+scrub_status=1
+
+if ! /usr/bin/mountpoint --quiet "$scrub_path"; then
+	result="FAILED"
+	output="$scrub_path is not a mounted filesystem."
+else
+	output=$(
+		/usr/bin/btrfs scrub start -B -d "$scrub_path" 2>&1
+	)
+	scrub_status=$?
+
+	case "$scrub_status" in
+		0)
+			result="COMPLETED"
+			;;
+		3)
+			result="UNCORRECTABLE ERRORS"
+			;;
+		*)
+			result="FAILED"
+			;;
+	esac
+fi
+
+finished=$(/usr/bin/date --iso-8601=seconds)
+
+{
+	printf 'Host:       %s\n' "$host"
+	printf 'Filesystem: %s\n' "$scrub_path"
+	printf 'Started:    %s\n' "$started"
+	printf 'Finished:   %s\n' "$finished"
+	printf 'Exit code:  %s\n' "$scrub_status"
+	printf '\n'
+	printf '%s\n' "$output"
+} | /usr/bin/mail \
+	-r "$MAIL_FROM" \
+	-s "[btrfs scrub] $host: $result" \
+	"$MAIL_TO"
+
+mail_status=$?
+
+# Preserve the report in the journal as well.
+printf '%s\n' "$output"
+
+# A scrub failure takes priority. Otherwise, report a mail submission failure.
+if (( scrub_status != 0 )); then
+    exit "$scrub_status"
+fi
+exit "$mail_status"
+

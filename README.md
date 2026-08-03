@@ -94,5 +94,5 @@ Packages will be built and deployed as they are ready. Built copies can be found
 - [ ] Create split package for X11/Wayland
 - [*] Write simple installer script
 - [*] Setup email for valhalla
-- [ ] Setup zed
-- [ ] Setup zfs/btrfs scrubs
+- [*] Setup zed
+- [*] Setup zfs/btrfs scrubs

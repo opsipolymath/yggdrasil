@@ -4,7 +4,11 @@
   -  Copy over data from old install
   -  Import ZFS pools and verify data, optionally scrub
   -  Setup secrets in /etc/nullmailer
-  -  systemctl enable --now nullmailer 
+  -  Enable nullmailer service
   -  Setup secrets in /etc/yggdrasil/zed.rc
-  - systemctl enable --now zed.rc
+  -  Enable zfs-zed service
+  -  Enable zfs-scrub-monthly@data1 timer
+  -  Enable zfs-scrub-monthly@data2 timer
+  -  Enable zfs-scrub-monthly@data3 timer
+  -  Enable btrfs-scrub-mail timer
 

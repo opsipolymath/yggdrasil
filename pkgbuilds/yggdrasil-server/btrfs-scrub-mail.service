@@ -1,0 +1,11 @@
+[Unit]
+Description=Scrub root Btrfs filesystem and email report
+Documentation=man:btrfs-scrub(8)
+RequiresMountsFor=/mnt/btrfs_root
+After=nullmailer.service
+Wants=nullmailer.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/lib/yggdrasil/btrfs-scrub-mail
+TimeoutStartSec=infinity
