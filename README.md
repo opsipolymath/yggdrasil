@@ -96,3 +96,4 @@ Packages will be built and deployed as they are ready. Built copies can be found
 - [*] Setup email for valhalla
 - [*] Setup zed
 - [*] Setup zfs/btrfs scrubs
+- [*] Setup samba

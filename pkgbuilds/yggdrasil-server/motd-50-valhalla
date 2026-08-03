@@ -11,4 +11,7 @@
   -  Enable zfs-scrub-monthly@data2 timer
   -  Enable zfs-scrub-monthly@data3 timer
   -  Enable btrfs-scrub-mail timer
+  -  Edit /etc/samba/smb.conf
+  -  Set smbpasswd -a <user>
+  -  Enable smb service
 

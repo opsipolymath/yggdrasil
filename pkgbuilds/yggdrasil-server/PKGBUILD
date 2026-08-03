@@ -46,13 +46,14 @@ source=(
 	'btrfs-scrub-mail'
 	'btrfs-scrub-mail.service'
 	'btrfs-scrub-mail.timer'
+	'smb.conf'
 )
 md5sums=('08c8f8e0bfef3fe721cd76135de3a96c'
          '655d7890ae5281b7b4e0b9339ebe820f'
          '69a5d30608abd1c1cccbdb2ee6b65078'
          'b02f5de1828a284ac13af8ddf1055e88'
          'f23f07f7338008cc70d5f5614f096eed'
-         '46a6078d0372f2a0fa9e901c49c1d3a3'
+         'cc2a49486a3643344ebcb27e6e564a07'
          'cdd3b9c5f52460a0a95eb63880c8b7a3'
          'cdd3b9c5f52460a0a95eb63880c8b7a3'
          '22168992a8d57a5d3a64ca73bb9fc669'
@@ -64,7 +65,8 @@ md5sums=('08c8f8e0bfef3fe721cd76135de3a96c'
          '3d51177520f43ab017e2bd0bd49dd74f'
          'f0f43ed4e88513fd711bfbe68a0ac56a'
          'f576b55f9a6a8622dc56738f70658852'
-         '06832b77305a666c5031b3914839ffa1')
+         '06832b77305a666c5031b3914839ffa1'
+         '54ebe830988e9564907af2fb4d01cac4')
 
 package_yggdrasil-server() {
 	pkgdesc="A base set of packages required by all yggdrasil servers"
@@ -162,4 +164,5 @@ package_yggdrasil-valhalla() {
 	install -Dm0750 "$srcdir/btrfs-scrub-mail"                 "$pkgdir/usr/lib/yggdrasil/btrfs-scrub-mail"
 	install -Dm0644 "$srcdir/btrfs-scrub-mail.service"         "$pkgdir/usr/lib/systemd/system/btrfs-scrub-root.service"
 	install -Dm0644 "$srcdir/btrfs-scrub-mail.service"         "$pkgdir/usr/lib/systemd/system/btrfs-scrub-root.timer"
+	install -Dm0644 "$srcdir/smb.conf"                         "$pkgdir/etc/samba/smb.conf"
 }
