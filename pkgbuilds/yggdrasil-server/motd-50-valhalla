@@ -2,4 +2,5 @@
 
   -  Get/start docker container images
   -  Copy over data from old install
+  -  Setup secrets in /etc/nullmailer and start svc
 

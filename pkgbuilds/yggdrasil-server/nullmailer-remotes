@@ -1,0 +1,1 @@
+smtp.gmail.com smtp port=587 starttls auth-login user='<sysadmin@email>' pass='<app_password>'

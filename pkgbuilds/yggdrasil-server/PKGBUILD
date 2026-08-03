@@ -6,7 +6,7 @@ pkgname=(
 	"yggdrasil-valhalla"
 )
 pkgver=1
-pkgrel=1
+pkgrel=2
 pkgdesc="A base set of packages required by all yggdrasil servers"
 arch=("any")
 url="https://github.com/opsipolymath/yggdrasil"
@@ -32,6 +32,9 @@ source=(
 	'valhalla-hostname'
 	'valhalla-override.conf'
 	'motd-50-valhalla'
+	'nullmailer-adminaddr'
+	'nullmailer-allmailfrom'
+	'nullmailer-defaultdomain'
 	'sysusers.yggdrasil-valhalla.conf'
 )
 md5sums=('08c8f8e0bfef3fe721cd76135de3a96c'
@@ -39,7 +42,10 @@ md5sums=('08c8f8e0bfef3fe721cd76135de3a96c'
          '69a5d30608abd1c1cccbdb2ee6b65078'
          'b02f5de1828a284ac13af8ddf1055e88'
          'f23f07f7338008cc70d5f5614f096eed'
-         '6dfbeec874ce9aae1149fb0f56bdad3f'
+         'd25cdbdc73f02549e1905b256dd9b6a1'
+         'cdd3b9c5f52460a0a95eb63880c8b7a3'
+         'cdd3b9c5f52460a0a95eb63880c8b7a3'
+         '22168992a8d57a5d3a64ca73bb9fc669'
          '1f42ae6e2350f998da8517904148b196')
 
 package_yggdrasil-server() {
@@ -119,8 +125,11 @@ package_yggdrasil-valhalla() {
 		'usr/lib/sysusers.d/sysusers.yggdrasil-valhalla.conf'
 	)
 
-	install -Dm0644 "$srcdir/valhalla-hostname"      "$pkgdir/etc/hostname"
-	install -Dm0644 "$srcdir/valhalla-override.conf" "$pkgdir/etc/systemd/system/systemd-networkd-wait-online.service.d/override.conf"
-	install -Dm0644 "$srcdir/motd-50-valhalla"       "$pkgdir/etc/yggdrasil/motd/50-valhalla"
-	install -Dm0644 "$srcdir/sysusers.yggdrasil-valhalla.conf" "$pkgdir/usr/lib/sysusers.d/sysusers.yggdrasil-valhalla.conf"
+	install -Dm0644 "$srcdir/valhalla-hostname"                "$pkgdir/etc/hostname"
+	install -Dm0644 "$srcdir/valhalla-override.conf"           "$pkgdir/etc/systemd/system/systemd-networkd-wait-online.service.d/override.conf"
+	install -Dm0644 "$srcdir/motd-50-valhalla"                 "$pkgdir/etc/yggdrasil/motd/50-valhalla"
+	install -Dm0644 "$srcdir/sysusers.yggdrasil-valhalla.conf" "$pkgdir/usr/lib/sysusers.d/yggdrasil-valhalla.conf"
+	install -Dm0644 "$srcdir/nullmailer-adminaddr"             "$pkgdir/etc/nullmailer/adminaddr"
+	install -Dm0644 "$srcdir/nullmailer-allmailfrom"           "$pkgdir/etc/nullmailer/allmailfrom"
+	install -Dm0644 "$srcdir/nullmailer-defaultdomain"         "$pkgdir/etc/nullmailer/defaultdomain"
 }
