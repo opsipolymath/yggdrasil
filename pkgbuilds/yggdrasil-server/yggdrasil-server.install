@@ -9,4 +9,9 @@ post_install() {
 
 	install -D /etc/zfs/zed.d/zed.rc /etc/yggdrasil/valhalla/backup/zed.rc
 	ln -sf /etc/yggdrasil/zed.rc     /etc/zfs/zed.d/zed.rc
+
+	grep -q 'valhalla' /etc/hostname &&
+		sed -i 's/HOSTNAME/VALHALLA/' /etc/motd
+	grep -q 'folkvangr' /etc/hostname &&
+		sed -i 's/HOSTNAME/ ASGARD /' /etc/motd
 }
