@@ -1,7 +1,7 @@
 # Maintainer: Opsipolymath <opsipolymath@gmail.com>
 pkgname="yggdrasil-base"
 pkgver=1
-pkgrel=2
+pkgrel=3
 pkgdesc="A base set of packages required by all yggdrasil hosts"
 arch=("any")
 url="https://github.com/opsipolymath/yggdrasil"
@@ -121,6 +121,7 @@ package() {
 	install -Dm0644 "$srcdir/us-ctrlcaps.map.gz"    "$pkgdir/usr/share/kbd/keymaps/i386/qwerty/us-ctrlcaps.map.gz"
 
 	install -dm0750                                 "$pkgdir/etc/sudoers.d"
+	install -dm0750                                 "$pkgdir/etc/polkit-1/rules.d"
 	install -Dm0440 "$srcdir/sudoers.d-10-wheel"    "$pkgdir/etc/sudoers.d/10-wheel"
 	install -Dm0644 "$srcdir/sshd-yggdrasil.conf"   "$pkgdir/etc/ssh/sshd_config.d/50-yggdrasil.conf"
 	install -Dm0655 "$srcdir/polkit-pcscd.rules"    "$pkgdir/etc/polkit-1/rules.d/99-pcscd.rules"
