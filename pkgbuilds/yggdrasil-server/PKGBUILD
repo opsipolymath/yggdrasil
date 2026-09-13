@@ -6,7 +6,7 @@ pkgname=(
 	"yggdrasil-valhalla"
 )
 pkgver=1
-pkgrel=3
+pkgrel=4
 pkgdesc="A base set of packages required by all yggdrasil servers"
 arch=("any")
 url="https://github.com/opsipolymath/yggdrasil"
@@ -142,7 +142,7 @@ package_yggdrasil-valhalla() {
 	backup=(
 		'etc/hostname'
 		'etc/systemd/system/systemd-networkd-wait-online.service.d/override.conf'
-		'usr/lib/sysusers.d/sysusers.yggdrasil-valhalla.conf'
+		'usr/lib/sysusers.d/yggdrasil-valhalla.conf'
 	)
 
 	install -Dm0644 "$srcdir/valhalla-hostname"                "$pkgdir/etc/hostname"
