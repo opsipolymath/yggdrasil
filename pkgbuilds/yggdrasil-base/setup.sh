@@ -18,34 +18,42 @@ _get_dotfiles() {
 	}
 
 	git clone -q --bare "$REPO_HTTPS" "$DOTDIR" || {
-		printf 'Failed cloning %s\n' "$GIT_REPO"
+		printf 'Failed cloning %s\n' "$GIT_REPO" >&2
 		return 1
 	}
 	
 	_dotgit --work-tree="$HOME" read-tree HEAD || {
-		printf 'Failed reading tree\n'
+		printf 'Failed reading tree\n' >&2
 		return 1
 	}
 	_dotgit --work-tree="$HOME" update-index --skip-worktree ".github/README.md" || {
-		printf 'Failed skipping README\n'
+		printf 'Failed skipping README\n' >&2
 		return 1
 	}
 	
 	_dotgit --work-tree="$HOME" checkout-index -a || {
-		printf 'Failed checking out dotfiles\n'
+		printf 'Failed checking out dotfiles\n' >&2
 		return 1
 	}
 	
 	_dotgit config --replace-all remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' || {
-		printf 'Failed updating refspec for origin\n'
+		printf 'Failed updating refspec for origin\n' >&2
+		return 1
+	}
+	_dotgit config branch.main.remote origin || {
+		printf 'Failed setting tracking branch\n' >&2
+		return 1
+	}
+	_dotfit config branch.main.merge refs/heads/main || {
+		printf 'Failed setting merge spec\n' >&2
 		return 1
 	}
 	_dotgit fetch -q origin || {
-		printf 'Failed fetching origin\n'
+		printf 'Failed fetching origin\n' >&2
 		return 1
 	}
 	_dotgit remote set-url origin "$REPO_SSH" || {
-		printf 'Failed setting remote to use ssh\n'
+		printf 'Failed setting remote to use ssh\n' >&2
 		return 1
 	}
 }

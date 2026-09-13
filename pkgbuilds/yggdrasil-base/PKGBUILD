@@ -1,7 +1,7 @@
 # Maintainer: Opsipolymath <opsipolymath@gmail.com>
 pkgname="yggdrasil-base"
 pkgver=1
-pkgrel=1
+pkgrel=2
 pkgdesc="A base set of packages required by all yggdrasil hosts"
 arch=("any")
 url="https://github.com/opsipolymath/yggdrasil"
@@ -91,7 +91,7 @@ source=(
 	'pacman.conf'
 	'vconsole.conf'
 )
-md5sums=('b892a88d4f4674b5123e58af4aef0d1e'
+md5sums=('db2b4babcd1d93fe67c19955555bc6f8'
          'fc8b1da36a9e8a038218e6230e495329'
          '6b503832474897841e80acddb8d5d327'
          '8a89f9a5a61fd2cb35816601fbca3c51'
